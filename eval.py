@@ -36,9 +36,11 @@ def str2bool(v):
 parser = argparse.ArgumentParser(
     description='Single Shot MultiBox Detector Evaluation')
 parser.add_argument('--trained_model',
-                    default='weights/ssd300_mAP_77.43_v2.pth', type=str,
+                    # default='weights/ssd300_mAP_77.43_v2.pth', type=str,
+                    # default=r'F:\pycharm_codes\ssdpytorch\Models\ssd300_mAP_77.43_v2.pth', type=str,
+                    default=r'F:\pycharm_codes\ssdpytorch\Models\ssd300_VOC_20000.pth', type=str,
                     help='Trained state_dict file path to open')
-parser.add_argument('--save_folder', default='eval/', type=str,
+parser.add_argument('--save_folder', default=r'F:\pycharm_codes\ssdpytorch\eval_model', type=str,
                     help='File path to save results')
 parser.add_argument('--confidence_threshold', default=0.01, type=float,
                     help='Detection confidence threshold')
@@ -67,9 +69,10 @@ else:
     torch.set_default_tensor_type('torch.FloatTensor')
 
 annopath = os.path.join(args.voc_root, 'VOC2007', 'Annotations', '%s.xml')
-imgpath = os.path.join(args.voc_root, 'VOC2007', 'JPEGImages', '%s.jpg')
-imgsetpath = os.path.join(args.voc_root, 'VOC2007', 'ImageSets',
-                          'Main', '{:s}.txt')
+# imgpath = os.path.join(args.voc_root, 'VOC2007', 'JPEGImages', '%s.jpg')
+imgsetpath = os.path.join(args.voc_root, 'VOC2007', 'ImageSets', 'Main') + os.sep + '{:s}.txt'
+# imgsetpath = os.path.join(args.voc_root, 'VOC2007', 'ImageSets',
+#                           'Main', '{:s}.txt')
 YEAR = '2007'
 devkit_path = args.voc_root + 'VOC' + YEAR
 dataset_mean = (104, 117, 123)
@@ -136,6 +139,7 @@ def get_output_dir(name, phase):
 def get_voc_results_file_template(image_set, cls):
     # VOCdevkit/VOC2007/results/det_test_aeroplane.txt
     filename = 'det_' + image_set + '_%s.txt' % (cls)
+    # filename = r'F:\pycharm_codes\ssdpytorch\VOC2007\VOC2007\ImageSets\Main\test.txt'
     filedir = os.path.join(devkit_path, 'results')
     if not os.path.exists(filedir):
         os.makedirs(filedir)
