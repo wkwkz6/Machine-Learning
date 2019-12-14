@@ -1,2 +1,8 @@
 # PowerBank.ssd.pytorch
 训练好的模型存放在trainedModel中
+
+原始数据处理代码存放在originalDataProcess中
+
+使用老师提供的eval_5epoch_for.py测试，输出文件存放在evalOuts中
+
+报告在Master目录下
